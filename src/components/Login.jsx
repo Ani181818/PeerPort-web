@@ -10,6 +10,7 @@ const Login = () => {
   const [password, setPassword] = useState("Rohit@123");
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [error, setError] = useState();
   const handleLoginSubmit = async()=> {
       try{
         const user =  await axios.post(BASE_URL+"/login",{
@@ -21,7 +22,7 @@ const Login = () => {
       return navigate("/")
     }
       catch(err){
-        console.log(err);
+        setError(err?.response?.data);
       }
   } 
 
@@ -59,7 +60,7 @@ const Login = () => {
                 />
               </fieldset>
             </div>
-
+            <p className="text-red-500">{error}</p>
             <div className="card-actions justify-center">
               <button className="btn btn-primary" onClick={handleLoginSubmit}>
                 Login
