@@ -33,10 +33,10 @@ const Login = () => {
         <div className="card bg-black text-neutral-content w-96">
           <div className="card-body">
             <h2 className="card-title justify-center">Login</h2>
-            <div className=" text-black py-4">
+            <div className=" text-white py-4">
               <fieldset className="fieldset">
                 <legend className="fieldset-legend text-white  font bold">
-                  Email ID:{emailId}
+                  Email ID:
                 </legend>
                 <input
                   type="text"

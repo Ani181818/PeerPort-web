@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { useEffect } from "react";
 
+
 const Body = () => {
     const dispatch =  useDispatch();
     const navigate = useNavigate();
@@ -25,9 +26,13 @@ const Body = () => {
         }
     }
 
+    
+
     useEffect(()=>{
-        fetchData();
+        if(!userData)fetchData();
     },[]);
+
+    
 
     return (
         <>
