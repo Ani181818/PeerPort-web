@@ -1,7 +1,8 @@
 
 
+
 const FeedCard = ({user}) => {
-    console.log(user);
+   
    const {firstName,lastName,age,gender,about,skills,photoURL} = user;
   return (
     <>
@@ -11,7 +12,7 @@ const FeedCard = ({user}) => {
         </figure>
         <div className="card-body">
           <h2 className="card-title">{firstName + " " + lastName}</h2>
-          {age && gender && <p>age+","+gender</p>}
+          {age && gender && <p>{age+","+gender}</p>}
           <p>{about}</p>
           <p>{skills}</p>
           <div className="card-actions justify-center my-4">

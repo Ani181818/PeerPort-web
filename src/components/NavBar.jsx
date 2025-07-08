@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { removeUser } from "../utils/userSlice";
+import { removeFeedData } from "../utils/feedSlice";
 
 const NavBar = () => {
   const user = useSelector((store)=> store.user);
@@ -10,6 +11,7 @@ const NavBar = () => {
   const handleLogout = ()=>{
     try{
     dispatch(removeUser());
+    dispatch(removeFeedData());
     return navigate("/login")
     }
     catch(err){
