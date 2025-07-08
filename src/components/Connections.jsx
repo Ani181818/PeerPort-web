@@ -30,7 +30,7 @@ const Connections = ()=>{
         <div className="my-10">
         {connections.map((connection) => {
             return (
-              <div>
+              <div key={connection._id}>
                 <ul className="list  flex m-4 p-4 rounded-lg w-1/2 mx-auto bg-base-300">
                   <li className="list-row">
                     <div className="mr-8">
