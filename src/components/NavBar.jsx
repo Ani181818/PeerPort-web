@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { removeUser } from "../utils/userSlice";
 import { removeFeedData } from "../utils/feedSlice";
 
+
 const NavBar = () => {
   const user = useSelector((store)=> store.user);
   const dispatch = useDispatch();
@@ -11,7 +12,7 @@ const NavBar = () => {
   const handleLogout = ()=>{
     try{
     dispatch(removeUser());
-    dispatch(removeFeedData());
+    dispatch(removeFeedData(null));
     return navigate("/login")
     }
     catch(err){
