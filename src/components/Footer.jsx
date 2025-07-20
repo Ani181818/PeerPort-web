@@ -57,8 +57,8 @@ const Footer = ()=> {
               </div>
             </div>
           </div>
-    )
-}
+    
+
 
           {/* Bottom Section */}
           <div className="border-t border-slate-700 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
