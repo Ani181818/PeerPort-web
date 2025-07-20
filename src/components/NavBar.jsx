@@ -34,6 +34,12 @@ const NavBar = () => {
       {/* Center Menu */}
       <div className="flex-none hidden md:flex gap-8">
         <Link
+          to="/"
+          className="hover:text-primary transition-colors duration-200 text-lg"
+        >
+          Home
+        </Link>
+        <Link
           to="/profile"
           className="hover:text-primary transition-colors duration-200 text-lg"
         >
