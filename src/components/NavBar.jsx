@@ -13,7 +13,7 @@ const NavBar = () => {
     try {
       dispatch(removeUser());
       dispatch(removeFeedData(null));
-      navigate("/login");
+      navigate("/");
     } catch (err) {
       console.log(err);
     }
@@ -24,7 +24,7 @@ const NavBar = () => {
       {/* Left Logo */}
       <div className="flex-1">
         <Link
-          to="/"
+          to={user ? "/feed" : "/"}
           className="text-3xl font-bold bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent hover:from-purple-400 hover:to-blue-500 transition-all duration-300"
         >
           PeerPort ⚡
@@ -35,10 +35,10 @@ const NavBar = () => {
       {user && (
         <div className="flex-none hidden md:flex gap-8 bg-slate-800/50 px-6 py-2 rounded-full backdrop-blur-sm">
           <Link
-            to="/"
+            to="/feed"
             className="hover:text-blue-400 transition-colors duration-200 text-lg font-medium px-3 py-1 rounded-md hover:bg-slate-700/50"
           >
-            Home
+            Feed
           </Link>
           <Link
             to="/profile"
@@ -61,8 +61,8 @@ const NavBar = () => {
         </div>
       )}
 
-      {/* Right Avatar + Welcome */}
-      {user && (
+      {/* Right Side - Login or User Avatar */}
+      {user ? (
         <div className="flex items-center gap-4 ml-6">
           <p className="text-sm hidden sm:block">
             Welcome,{" "}
@@ -95,6 +95,15 @@ const NavBar = () => {
               </li>
             </ul>
           </div>
+        </div>
+      ) : (
+        <div className="flex items-center gap-4">
+          <Link
+            to="/login"
+            className="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white font-semibold px-6 py-2 rounded-full transition-all duration-200 transform hover:scale-105 shadow-lg"
+          >
+            Login
+          </Link>
         </div>
       )}
     </div>

@@ -1,5 +1,6 @@
 import { Outlet, useNavigate } from "react-router-dom";
 import NavBar from "./NavBar";
+import Footer from "./Footer";
 import { BASE_URL } from "../utils/constants";
 import { addUser } from "../utils/userSlice";
 import { useDispatch, useSelector } from "react-redux";
@@ -19,7 +20,7 @@ const Body = () => {
         }
         catch(error){
             if(error.status === 400){
-            navigate("/login")
+            navigate("/")
             }
             console.error(error);
         }
@@ -34,10 +35,13 @@ const Body = () => {
     
 
     return (
-        <>
+        <div className="min-h-screen flex flex-col">
             <NavBar />
-            <Outlet/>
-        </>
+            <main className="flex-1">
+                <Outlet/>
+            </main>
+            <Footer />
+        </div>
     )
 }
 
