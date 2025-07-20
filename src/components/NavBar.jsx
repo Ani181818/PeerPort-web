@@ -32,32 +32,34 @@ const NavBar = () => {
       </div>
 
       {/* Center Menu */}
-      <div className="flex-none hidden md:flex gap-8">
-        <Link
-          to="/"
-          className="hover:text-primary transition-colors duration-200 text-lg"
-        >
-          Home
-        </Link>
-        <Link
-          to="/profile"
-          className="hover:text-primary transition-colors duration-200 text-lg"
-        >
-          Profile
-        </Link>
-        <Link
-          to="/connections"
-          className="hover:text-primary transition-colors duration-200 text-lg"
-        >
-          Connections
-        </Link>
-        <Link
-          to="/requests"
-          className="hover:text-primary transition-colors duration-200 text-lg"
-        >
-          Requests
-        </Link>
-      </div>
+      {user && (
+        <div className="flex-none hidden md:flex gap-8">
+          <Link
+            to="/"
+            className="hover:text-primary transition-colors duration-200 text-lg"
+          >
+            Home
+          </Link>
+          <Link
+            to="/profile"
+            className="hover:text-primary transition-colors duration-200 text-lg"
+          >
+            Profile
+          </Link>
+          <Link
+            to="/connections"
+            className="hover:text-primary transition-colors duration-200 text-lg"
+          >
+            Connections
+          </Link>
+          <Link
+            to="/requests"
+            className="hover:text-primary transition-colors duration-200 text-lg"
+          >
+            Requests
+          </Link>
+        </div>
+      )}
 
       {/* Right Avatar + Welcome */}
       {user && (
