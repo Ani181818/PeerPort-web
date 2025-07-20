@@ -27,37 +27,39 @@ const Connections = ()=>{
     if(connections.length === 0)return <h1>No Connections Found!</h1>
     return (
       <>
-        <h1 className="text-white font-bold text-3xl text-center">Your Connections</h1>
+        <h1 className="text-4xl font-bold text-center bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent mb-8">
+          Your Connections
+        </h1>
         <div className="my-10">
         {connections.map((connection) => {
             return (
               <div key={connection._id}>
-                <ul className="list  flex m-4 p-4 rounded-lg w-1/2 mx-auto bg-base-300">
+                <ul className="list flex m-4 p-6 rounded-xl w-1/2 mx-auto bg-gradient-to-r from-slate-800 to-slate-900 shadow-xl border border-slate-700 hover:shadow-2xl transition-all duration-300">
                   <li className="list-row">
                     <div className="mr-8">
                       <img
-                        className="size-20 rounded-box"
+                        className="size-20 rounded-full border-4 border-blue-400 shadow-lg"
                         src={connection.photoURL}
                       />
                     </div>
-                    <div>
-                      <div className="font-bold text-l">
+                    <div className="text-white">
+                      <div className="font-bold text-xl bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
                         {connection.firstName + " " + connection.lastName}
                       </div>
                       {connection.age && connection.gender && (
-                        <div className="text-xs uppercase font-semibold opacity-60">
+                        <div className="text-sm font-medium text-slate-300 mt-1">
                           {connection.age + "," + connection.gender}
                         </div>
                       )}
-                      <div className="text-xs uppercase font-semibold opacity-60">
+                      <div className="text-sm font-medium text-blue-300 mt-1">
                         {connection.skills}
                       </div>
-                      <div className="text-xs uppercase font-semibold opacity-60">
+                      <div className="text-sm text-slate-200 mt-2 leading-relaxed">
                         {connection.about}
                       </div>
                     </div>
                     <Link to={"/chat/" + connection._id}>
-                      <button className="btn btn-primary rounded-l">
+                      <button className="btn bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 border-none text-white font-semibold px-6 py-2 shadow-lg transform hover:scale-105 transition-all duration-200 rounded-lg">
                         Chat
                       </button>
                     </Link>

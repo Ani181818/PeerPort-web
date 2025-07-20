@@ -33,7 +33,7 @@ const Request = ()=>{
     if (requests.length === 0) return <h1>No Connections Found!</h1>;
     return (
       <>
-        <h1 className="text-white font-bold text-3xl text-center">
+        <h1 className="text-4xl font-bold text-center bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent mb-8">
           Your Requests
         </h1>
         <div className="my-10">
@@ -42,32 +42,32 @@ const Request = ()=>{
               request.fromUserId;
             return (
               <div key={_id}>
-                <ul className="list  flex justify-between  m-4 p-4 rounded-lg w-1/2 mx-auto bg-base-300">
+                <ul className="list flex justify-between m-4 p-6 rounded-xl w-1/2 mx-auto bg-gradient-to-r from-slate-800 to-slate-900 shadow-xl border border-slate-700 hover:shadow-2xl transition-all duration-300">
                   <li className="list-row">
                     <div className="mr-8">
-                      <img className="size-20 rounded-box" src={photoURL} />
+                      <img className="size-20 rounded-full border-4 border-blue-400 shadow-lg" src={photoURL} />
                     </div>
-                    <div>
-                      <div className="font-bold text-l">
+                    <div className="text-white">
+                      <div className="font-bold text-xl bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
                         {firstName + " " + lastName}
                       </div>
                       {age && gender && (
-                        <div className="text-xs uppercase font-semibold opacity-60">
+                        <div className="text-sm font-medium text-slate-300 mt-1">
                           {age + "," + gender}
                         </div>
                       )}
-                      <div className="text-xs uppercase font-semibold opacity-60">
+                      <div className="text-sm font-medium text-blue-300 mt-1">
                         {skills}
                       </div>
-                      <div className="text-xs uppercase font-semibold opacity-60">
+                      <div className="text-sm text-slate-200 mt-2 leading-relaxed">
                         {about}
                       </div>
                     </div>
                     <div>
-                      <button className="btn btn-outline btn-primary mx-4" onClick={() => handleRequests("rejected",request._id)}>
+                      <button className="btn bg-gradient-to-r from-red-500 to-pink-600 hover:from-red-600 hover:to-pink-700 border-none text-white font-semibold px-6 py-2 shadow-lg transform hover:scale-105 transition-all duration-200 rounded-lg mx-2" onClick={() => handleRequests("rejected",request._id)}>
                         Reject
                       </button>
-                      <button className="btn btn-outline btn-secondary" onClick={() => handleRequests("accepted",request._id)}>
+                      <button className="btn bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 border-none text-white font-semibold px-6 py-2 shadow-lg transform hover:scale-105 transition-all duration-200 rounded-lg" onClick={() => handleRequests("accepted",request._id)}>
                         Accept
                       </button>
                     </div>

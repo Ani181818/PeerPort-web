@@ -68,10 +68,10 @@ const Chat = () => {
   };
 
   return (
-    <div className="max-w-4xl mx-auto my-10 border border-gray-700 bg-gray-900 text-white rounded-xl shadow-md h-[80vh] flex flex-col overflow-hidden">
+    <div className="max-w-4xl mx-auto my-10 border border-slate-700 bg-gradient-to-br from-slate-900 to-slate-800 text-white rounded-2xl shadow-2xl h-[80vh] flex flex-col overflow-hidden">
       {/* Header */}
-      <div className="bg-gray-800 px-6 py-4 border-b border-gray-700 text-lg font-semibold">
-        Chat Room
+      <div className="bg-gradient-to-r from-blue-600 to-purple-700 px-6 py-4 border-b border-slate-700 text-xl font-bold text-center">
+        PeerPort Chat
       </div>
 
       {/* Chat messages */}
@@ -86,8 +86,8 @@ const Chat = () => {
               <div
                 className={`max-w-[75%] px-4 py-2 rounded-lg text-sm shadow-md ${
                   isMe
-                    ? "bg-blue-600 text-white rounded-br-none"
-                    : "bg-gray-700 text-white rounded-bl-none"
+                    ? "bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-br-none shadow-lg"
+                    : "bg-gradient-to-r from-slate-700 to-slate-600 text-white rounded-bl-none shadow-lg"
                 }`}
               >
                 <div className="text-xs font-semibold opacity-80 mb-1">
@@ -102,16 +102,16 @@ const Chat = () => {
       </div>
 
       {/* Input */}
-      <div className="px-6 py-4 bg-gray-800 border-t border-gray-700 flex gap-3 items-center">
+      <div className="px-6 py-4 bg-gradient-to-r from-slate-800 to-slate-900 border-t border-slate-700 flex gap-3 items-center">
         <input
           value={newMsg}
           onChange={(e) => setNewMsg(e.target.value)}
           placeholder="Type your message..."
-          className="flex-1 p-2 bg-gray-700 rounded text-white outline-none focus:ring-2 focus:ring-blue-500"
+          className="flex-1 p-3 bg-slate-700 border border-slate-600 rounded-lg text-white outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400 transition-all duration-200"
         />
         <button
           onClick={sendMessage}
-          className="bg-blue-600 hover:bg-blue-700 transition px-4 py-2 rounded text-white font-medium"
+          className="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 transition-all duration-200 px-6 py-3 rounded-lg text-white font-semibold shadow-lg transform hover:scale-105"
         >
           Send
         </button>

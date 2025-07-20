@@ -27,11 +27,17 @@ const Feed = () => {
 
   if (!feed) return;
 
-  if (feed.length === 0) return <h1>No User Found</h1>;
+  if (feed.length === 0) return (
+    <div className="flex justify-center items-center min-h-[60vh]">
+      <h1 className="text-4xl font-bold bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
+        No More Users Found
+      </h1>
+    </div>
+  );
   return (
     feed && (
       <>
-        <div className="flex justify-center my-10">
+        <div className="flex justify-center my-10 px-4">
           <FeedCard user={feed[0]} />
         </div>
       </>
