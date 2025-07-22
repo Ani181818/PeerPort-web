@@ -30,7 +30,24 @@ const Request = ()=>{
 
     if (!requests) return;
 
-    if (requests.length === 0) return <h1>No Connections Found!</h1>;
+    if (requests.length === 0) {
+      return (
+        <div className="flex flex-col items-center justify-center h-[70vh] text-center">
+          <img
+            src="https://cdn-icons-png.flaticon.com/128/7465/7465691.png"
+            alt="No Requests"
+            className="w-64 h-64 mb-6 animate-fadeIn"
+          />
+          <h2 className="text-3xl font-bold text-gray-300 mb-2">
+            No Requests Found
+          </h2>
+          <p className="text-gray-400 text-md">
+            Looks like no one has sent you a request yet.
+          </p>
+        </div>
+      );
+    }
+
     return (
       <>
         <h1 className="text-4xl font-bold text-center bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent mb-8">

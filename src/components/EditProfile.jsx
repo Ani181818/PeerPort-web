@@ -11,6 +11,7 @@ const Editprofile = ({ user }) => {
   const [age, setAge] = useState(user.age || "");
   const [gender, setGender] = useState(user.gender || "");
   const [about, setAbout] = useState(user.about || "");
+  const [skills, setSkills] = useState(user.skills || "");
   const [photoURL, setPhotoURL] = useState(user.photoURL);
   const [error, setError] = useState("");
   const dispatch = useDispatch();
@@ -28,6 +29,7 @@ const Editprofile = ({ user }) => {
           gender,
           about,
           photoURL,
+          skills
         },
         { withCredentials: true }
       );
@@ -124,25 +126,41 @@ const Editprofile = ({ user }) => {
                   <input
                     type="text"
                     className="input w-full bg-slate-800 border-slate-600 text-white focus:border-blue-400 focus:ring-2 focus:ring-blue-400/20"
-                    placeholder="Type here"
+                    placeholder="e.g education details,course etc"
                     value={about}
                     onChange={(e) => setAbout(e.target.value)}
+                  />
+                </fieldset>
+                <fieldset className="fieldset">
+                  <legend className="fieldset-legend text-blue-300 font-semibold">
+                    Skills
+                  </legend>
+                  <input
+                    type="text"
+                    className="input w-full bg-slate-800 border-slate-600 text-white focus:border-blue-400 focus:ring-2 focus:ring-blue-400/20"
+                    placeholder="e.g Frontend Devloper,AI/ML"
+                    value={skills}
+                    onChange={(e) => setSkills(e.target.value)}
                   />
                 </fieldset>
               </div>
               {error && <p className="text-red-500">{error}</p>}
               <div className="card-actions justify-center">
-                <button className="btn bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 border-none text-white font-semibold px-8 py-2 shadow-lg transform hover:scale-105 transition-all duration-200" onClick={saveProfile}>
+                <button
+                  className="btn bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 border-none text-white font-semibold px-8 py-2 shadow-lg transform hover:scale-105 transition-all duration-200"
+                  onClick={saveProfile}
+                >
                   Save Changes
                 </button>
               </div>
             </div>
           </div>
         </div>
-
-        <FeedCard
-          user={{ firstName, lastName, age, gender, about, photoURL }}
-        />
+        <div>
+          <FeedCard
+            user={{ firstName, lastName, age, gender, about, photoURL, skills }}
+          />
+        </div>
       </div>
 
       {/* ✅ Toast Message */}

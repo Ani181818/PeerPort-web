@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux";
 
 const FeedCard = ({ user }) => {
   const dispatch = useDispatch();
+
   const handleSendRequests = async (status, userId) => {
     await axios.post(
       BASE_URL + "/request/send/" + status + "/" + userId,
@@ -12,11 +13,12 @@ const FeedCard = ({ user }) => {
       { withCredentials: true }
     );
 
-      dispatch(removeFeedData(userId))
+    dispatch(removeFeedData(userId));
   };
 
   const { _id, firstName, lastName, age, gender, about, skills, photoURL } =
     user;
+
   return (
     <>
       <div className="card bg-gradient-to-br from-slate-800 to-slate-900 w-96 shadow-2xl border border-slate-700 hover:shadow-3xl transition-all duration-300 transform hover:scale-105">
@@ -27,9 +29,18 @@ const FeedCard = ({ user }) => {
           <h2 className="card-title text-2xl font-bold bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
             {firstName + " " + lastName}
           </h2>
-          {age && gender && <p className="text-slate-300 font-medium">{age + ", " + gender}</p>}
-          <p className="text-slate-200 leading-relaxed">{about}</p>
-          <p className="text-blue-300 font-semibold">{skills}</p>
+
+          {/* TEXT BLOCK WITH COMPACT SPACING */}
+          <div className="space-y-1 mt-1">
+            {age && gender && (
+              <p className="text-slate-300 font-medium m-0">
+                {age + ", " + gender}
+              </p>
+            )}
+            <p className="text-slate-200 leading-snug m-0">{about}</p>
+            <p className="text-blue-300 font-semibold m-0">{skills}</p>
+          </div>
+
           <div className="card-actions justify-center my-4">
             <button
               className="btn bg-gradient-to-r from-red-500 to-pink-600 hover:from-red-600 hover:to-pink-700 border-none text-white font-semibold px-6 py-2 shadow-lg transform hover:scale-105 transition-all duration-200"

@@ -12,7 +12,7 @@ const Login = () => {
   const [lastName,setLastName] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [isLogin,setIsLogin] = useState(false);
+  const [isLogin,setIsLogin] = useState(true);
   const [error, setError] = useState();
   const handleLoginSubmit = async()=> {
       try{
