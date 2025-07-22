@@ -1,12 +1,17 @@
 import axios from "axios"
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addUserRequests, removeRequests } from "../utils/requestsSlice";
 import { useEffect } from "react";
 import { BASE_URL } from "../utils/constants";
+import { Search } from "lucide-react";
 
 const Request = ()=>{
     const dispatch = useDispatch();
     const requests = useSelector(store => store.requests);
+    const [searchTerm, setSearchTerm] = useState("");
+    const [filteredRequests, setFilteredRequests] = useState([]);
+
     const fetchRequets = async()=>{
         const requests = await axios.get(BASE_URL+"/user/requests/received",{withCredentials:true});
         console.log(requests);
@@ -28,6 +33,22 @@ const Request = ()=>{
         fetchRequets();
     },[])
 
+    useEffect(() => {
+        if (requests) {
+            const filtered = requests.filter(request => {
+                const { firstName, lastName, skills, about } = request.fromUserId;
+                const fullName = `${firstName} ${lastName}`.toLowerCase();
+                const userSkills = skills?.toLowerCase() || "";
+                const userAbout = about?.toLowerCase() || "";
+                const search = searchTerm.toLowerCase();
+                
+                return fullName.includes(search) || 
+                       userSkills.includes(search) || 
+                       userAbout.includes(search);
+            });
+            setFilteredRequests(filtered);
+        }
+    }, [requests, searchTerm]);
     if (!requests) return;
 
     if (requests.length === 0) {
@@ -53,8 +74,22 @@ const Request = ()=>{
         <h1 className="text-4xl font-bold text-center bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent mb-8">
           Your Requests
         </h1>
+        
+        {/* Search Bar */}
+        <div className="max-w-md mx-auto mb-8">
+          <div className="relative">
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400 w-5 h-5" />
+            <input
+              type="text"
+              placeholder="Search requests by name, skills, or about..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="w-full pl-10 pr-4 py-3 bg-slate-800 border border-slate-600 rounded-lg text-white placeholder-slate-400 focus:border-blue-400 focus:ring-2 focus:ring-blue-400/20 transition-all duration-200"
+            />
+          </div>
+        </div>
         <div className="my-10">
-          {requests.map((request) => {
+          {(searchTerm ? filteredRequests : requests).map((request) => {
             const { _id,firstName, lastName, age, gender, about, photoURL,skills } =
               request.fromUserId;
             return (
@@ -97,5 +132,24 @@ const Request = ()=>{
       </>
     );
 }
+
+        {/* Results Count */}
+        {searchTerm && (
+          <div className="text-center mb-4">
+            <p className="text-slate-300">
+              Found {filteredRequests.length} request{filteredRequests.length !== 1 ? 's' : ''} 
+              {searchTerm && ` matching "${searchTerm}"`}
+            </p>
+          </div>
+        )}
+
+        {/* No Results Message */}
+        {searchTerm && filteredRequests.length === 0 && (
+          <div className="flex flex-col items-center justify-center h-[40vh] text-center">
+            <Search className="w-16 h-16 text-slate-400 mb-4" />
+            <h3 className="text-xl font-bold text-slate-300 mb-2">No matches found</h3>
+            <p className="text-slate-400">Try adjusting your search terms</p>
+          </div>
+        )}
 
 export default Request
