@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import FeedCard from "./FeedCard";
 import axios from "axios";
 import { BASE_URL } from "../utils/constants";
@@ -14,8 +14,59 @@ const Editprofile = ({ user }) => {
   const [skills, setSkills] = useState(user.skills || "");
   const [photoURL, setPhotoURL] = useState(user.photoURL);
   const [error, setError] = useState("");
+  const [uploading, setUploading] = useState(false);
+  const [selectedFile, setSelectedFile] = useState(null);
+  const fileInputRef = useRef(null);
   const dispatch = useDispatch();
   const [showToast, setShowToast] = useState(false);
+  const [toastMessage, setToastMessage] = useState("");
+
+  const handleFileSelect = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setSelectedFile(file);
+      // Create a preview URL for the selected file
+      const previewURL = URL.createObjectURL(file);
+      setPhotoURL(previewURL);
+    }
+  };
+
+  const uploadPhoto = async () => {
+    if (!selectedFile) return;
+
+    setUploading(true);
+    setError("");
+    
+    try {
+      const formData = new FormData();
+      formData.append('photo', selectedFile);
+
+      const res = await axios.post(
+        BASE_URL + "/upload/photo",
+        formData,
+        { 
+          withCredentials: true,
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          }
+        }
+      );
+
+      if (res.data.success) {
+        setPhotoURL(res.data.photoURL);
+        setSelectedFile(null);
+        setToastMessage("Photo uploaded successfully!");
+        setShowToast(true);
+        setTimeout(() => {
+          setShowToast(false);
+        }, 3000);
+      }
+    } catch (error) {
+      setError(error.response?.data?.error || "Upload failed");
+    } finally {
+      setUploading(false);
+    }
+  };
 
   const saveProfile = async () => {
     setError("");
@@ -33,6 +84,7 @@ const Editprofile = ({ user }) => {
         },
         { withCredentials: true }
       );
+      setToastMessage("Profile Updated Successfully!");
       setShowToast(true);
       setTimeout(() => {
         setShowToast(false);
@@ -110,13 +162,48 @@ const Editprofile = ({ user }) => {
                   <legend className="fieldset-legend text-blue-300 font-semibold">
                     Photo
                   </legend>
-                  <input
-                    type="text"
-                    className="input w-full bg-slate-800 border-slate-600 text-white focus:border-blue-400 focus:ring-2 focus:ring-blue-400/20"
-                    placeholder="Type here"
-                    value={photoURL}
-                    onChange={(e) => setPhotoURL(e.target.value)}
-                  />
+                  <div className="space-y-3">
+                    {/* File Upload Section */}
+                    <div className="flex flex-col space-y-2">
+                      <input
+                        ref={fileInputRef}
+                        type="file"
+                        accept="image/*"
+                        onChange={handleFileSelect}
+                        className="hidden"
+                      />
+                      <button
+                        type="button"
+                        onClick={() => fileInputRef.current?.click()}
+                        className="btn bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 border-none text-white font-semibold px-4 py-2 text-sm shadow-lg transform hover:scale-105 transition-all duration-200"
+                      >
+                        Choose Photo
+                      </button>
+                      {selectedFile && (
+                        <div className="flex items-center space-x-2">
+                          <button
+                            type="button"
+                            onClick={uploadPhoto}
+                            disabled={uploading}
+                            className="btn bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 border-none text-white font-semibold px-4 py-2 text-sm shadow-lg transform hover:scale-105 transition-all duration-200 disabled:opacity-50"
+                          >
+                            {uploading ? "Uploading..." : "Upload Photo"}
+                          </button>
+                          <span className="text-sm text-gray-300">{selectedFile.name}</span>
+                        </div>
+                      )}
+                    </div>
+                    
+                    {/* URL Input Section */}
+                    <div className="text-sm text-gray-300 mb-2">Or enter photo URL:</div>
+                    <input
+                      type="text"
+                      className="input w-full bg-slate-800 border-slate-600 text-white focus:border-blue-400 focus:ring-2 focus:ring-blue-400/20"
+                      placeholder="Enter photo URL"
+                      value={photoURL}
+                      onChange={(e) => setPhotoURL(e.target.value)}
+                    />
+                  </div>
                 </fieldset>
 
                 <fieldset className="fieldset">
@@ -166,7 +253,7 @@ const Editprofile = ({ user }) => {
       {/* ✅ Toast Message */}
       {showToast && (
         <div className="fixed top-5 left-1/2 transform -translate-x-1/2 z-50 bg-green-600 text-white px-6 py-3 rounded-md shadow-md transition-all duration-300">
-          Profile Updated Successfully!
+          {toastMessage}
         </div>
       )}
     </>

@@ -43,7 +43,7 @@ const Connections = () => {
     return (
       <div className="flex flex-col items-center justify-center h-[70vh] text-center">
         <img
-          src="https://cdni.iconscout.com/illustration/premium/thumb/connection-lost-7970447-6361911.png"
+          src="https://cdn-icons-png.flaticon.com/128/7465/7465691.png"
           alt="No Connections"
           className="w-64 h-64 mb-6 animate-fadeIn"
         />
