@@ -93,7 +93,7 @@ const Login = () => {
                   Password
                 </legend>
                 <input
-                  type="text"
+                  type="password"
                   className="input w-full bg-slate-800 border-slate-600 text-white focus:border-blue-400 focus:ring-2 focus:ring-blue-400/20"
                   placeholder="Type here"
                   value={password}
