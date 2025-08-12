@@ -3,21 +3,29 @@ import { Link, useNavigate } from "react-router-dom";
 import { removeUser } from "../utils/userSlice";
 import { removeFeedData } from "../utils/feedSlice";
 import { LogOut } from "lucide-react";
+import axios from "axios";
+import { BASE_URL } from "../utils/constants";
 
 const NavBar = () => {
   const user = useSelector((store) => store.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const handleLogout = () => {
-    try {
-      dispatch(removeUser());
-      dispatch(removeFeedData(null));
-      navigate("/");
-    } catch (err) {
-      console.log(err);
-    }
-  };
+ const handleLogout = async () => {
+   try {
+     await axios.post(
+       `${BASE_URL}/logout`,
+       {},
+       { withCredentials: true } // ensures cookies are sent & cleared
+     );
+
+     dispatch(removeUser());
+     dispatch(removeFeedData(null));
+     navigate("/");
+   } catch (err) {
+     console.error("Logout failed:", err);
+   }
+ };
 
   return (
     <div className="navbar bg-gradient-to-r from-slate-900 to-slate-800 text-white shadow-2xl sticky top-0 z-50 px-4 border-b border-slate-700">
