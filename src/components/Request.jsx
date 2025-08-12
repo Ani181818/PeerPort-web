@@ -13,7 +13,7 @@ const Request = () => {
     const requests = await axios.get(BASE_URL + "/user/requests/received", {
       withCredentials: true,
     });
-    console.log(requests);
+    
     dispatch(addUserRequests(requests.data));
   };
 
